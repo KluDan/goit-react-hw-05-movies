@@ -5,7 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HomePage = () => {
-  const { data, loading, error } = useMovieData(fetchTrendingMovies);
+  const { data, loading } = useMovieData(fetchTrendingMovies);
   const movies = data ? data.results : [];
   console.log(movies);
 

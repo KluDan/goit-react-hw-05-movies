@@ -15,7 +15,7 @@ export const CastList = ({ cast, loading }) => {
           : placeholderImage;
         return (
           <ActorListItem key={actor.id}>
-            <img src={posterPath} />
+            <img src={posterPath} alt={actor.original_name} />
             <p>{actor.original_name}</p>
             <p>{actor.character}</p>
           </ActorListItem>
