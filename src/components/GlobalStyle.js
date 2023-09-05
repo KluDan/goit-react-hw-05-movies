@@ -62,24 +62,19 @@ h1 {
 	font-weight: bold;
 	margin-bottom: 10px;
 }
-h2{
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
+
 input[type='tel'] {
 	margin: 0px;
 	padding: 5px;
 }
-button:hover{
-	background-color: blue;
-	color:#fff;
-	border-color:blue;
-	cursor: pointer;
-}
+
 ul, ol {
   margin: 0;
   padding: 0;
-  list-style: disc;
+  list-style: none;
+}
+
+a{
+	text-decoration: none;
 }
 `;

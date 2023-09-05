@@ -1,15 +1,36 @@
+import { LoadingSpinner } from 'components/LoadingSpinner';
+
+import {
+  Reviews,
+  ReviewsItemTitle,
+  ReviewsItemTop,
+} from './ReviewsList.styled';
+
 export const ReviewsList = ({ reviews, loading }) => {
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
   if (!Array.isArray(reviews) || reviews.length === 0) {
-    return <div>Cast data is not available.</div>;
+    return <div>Reviews data is not available.</div>;
+  }
+  function formatDate(inputDateString) {
+    const inputDate = new Date(inputDateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = inputDate.toLocaleDateString('en-US', options);
+    return formattedDate;
   }
   return (
-    <ul>
+    <Reviews>
       {reviews.map(review => (
-        <li key={review.id}>{<p>{review.content}</p>}</li>
+        <li key={review.id}>
+          <ReviewsItemTop>
+            <ReviewsItemTitle>{review.author}</ReviewsItemTitle>
+            <p>{formatDate(review.created_at)}</p>
+          </ReviewsItemTop>
+          <p>{review.content}</p>
+          <hr />
+        </li>
       ))}
-    </ul>
+    </Reviews>
   );
 };

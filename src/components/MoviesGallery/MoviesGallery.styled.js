@@ -1,26 +1,40 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const MoviesGalleryBlock = styled.ul`
   display: grid;
+  max-width: 100%;
+  margin: 0;
   max-width: calc(100vw - 48px);
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: 16px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding: 0;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-gap: 30px;
   list-style: none;
-  margin-left: auto;
-  margin-right: auto;
   overflow: hidden;
+  color: #fff;
 `;
 
 export const MoviesGalleryItemBlock = styled.li`
   cursor: pointer;
-  border-radius: 2px;
-  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-  :hover {
-    transform: scale(1.03);
-    cursor: pointer;
-  }
+`;
+
+export const MoviesTitle = styled.h2`
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  color: #fff;
+`;
+export const MovieBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const MoviesGalleryItem = styled.img`
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  object-position: center;
+`;
+export const Link = styled(NavLink)`
+  text-decoration: none;
 `;

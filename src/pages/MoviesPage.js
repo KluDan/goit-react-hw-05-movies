@@ -1,8 +1,18 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Searchbar } from 'components/SearchBar/SearchBar';
 import { useEffect, useState } from 'react';
 import { fetchMovies } from 'api';
+import styled from 'styled-components';
 import { MoviesGallery } from 'components/MoviesGallery/MoviesGallery';
+import toast from 'react-hot-toast';
+
+const MoviesContainer = styled.div`
+  padding-inline: 40px;
+`;
+const NotFoundMessage = styled.p`
+  color: #fff;
+  font-size: 26px;
+`;
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -17,28 +27,42 @@ const MoviesPage = () => {
   };
 
   useEffect(() => {
-    if (!query) return;
     const fetchMoviesBySearch = async () => {
       try {
+        if (!query) return;
+
         setLoading(true);
         const responseData = await fetchMovies(query);
 
         setMovies(responseData.results);
         setLoading(false);
+
         if (!firstRequestMade) {
           setFirstRequestMade(true);
         }
 
         console.log(responseData);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        toast.error('Error fetching movies.');
       }
     };
 
     fetchMoviesBySearch();
-  }, [query]);
+  }, [query, firstRequestMade]);
+
+  const renderNoImagesMessage = () => {
+    if (firstRequestMade && movies.length === 0 && !loading) {
+      return (
+        <NotFoundMessage>
+          No movies found for your query: "{query}"!
+        </NotFoundMessage>
+      );
+    }
+    return null;
+  };
+
   return (
-    <>
+    <MoviesContainer>
       <Searchbar submitQuery={changeQuery}></Searchbar>
 
       <MoviesGallery
@@ -46,10 +70,8 @@ const MoviesPage = () => {
         movies={movies}
         loading={loading}
       />
-      {firstRequestMade && movies.length === 0 && !loading && (
-        <div className="no-images-message">No movies found.</div>
-      )}
-    </>
+      {renderNoImagesMessage()}
+    </MoviesContainer>
   );
 };
 

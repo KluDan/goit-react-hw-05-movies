@@ -1,12 +1,17 @@
-import { MoviesGalleryItem } from 'components/MoviesGalleryItem/MoviesGalleryItem';
+import { LoadingSpinner } from 'components/LoadingSpinner';
+
+import { useLocation } from 'react-router-dom';
 import {
   MoviesGalleryBlock,
   MoviesGalleryItemBlock,
 } from './MoviesGallery.styled';
+import MovieItem from './MoviesItem';
 
 export const MoviesGallery = ({ movies, loading }) => {
+  const location = useLocation();
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!movies || movies.length === 0) {
@@ -17,10 +22,7 @@ export const MoviesGallery = ({ movies, loading }) => {
     <MoviesGalleryBlock>
       {movies.map(movie => (
         <MoviesGalleryItemBlock key={movie.id}>
-          <>
-            <MoviesGalleryItem movie={movie} />
-            <p>{movie.title ?? movie.name}</p>
-          </>
+          <MovieItem movie={movie} location={location} />
         </MoviesGalleryItemBlock>
       ))}
     </MoviesGalleryBlock>
